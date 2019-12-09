@@ -18,6 +18,10 @@
             height: 40px;
         }
 
+        .keyword {
+            font-weight: bold;
+        }
+
         @media only screen and (min-width: 768px){
             .dice {
                 width: 60px;
@@ -64,6 +68,19 @@
                         <option value="crits">Crits</option>
                     </select>
                 </div>
+                <p>
+                    <button class="btn btn-light btn-sm" type="button" data-toggle="collapse" data-target="#attackAdvanced" aria-expanded="false" aria-controls="collapseExample">Advanced</button>
+                </p>
+                <div class="collapse" id="attackAdvanced">
+                    <div class="form-group">
+                        <label for="r">Aim tokens</label>
+                        <input type="number" class="form-control" id="aim" value="0" min="0" max="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="r" class="keyword">Precise X</label>
+                        <input type="number" class="form-control" id="preciseX" value="0" min="0" max="10">
+                    </div>
+                </div>
                 <h3>Defense</h3>
                 <div class="form-group">
                     <label for="d">Defend with</label>
@@ -76,7 +93,24 @@
                     <input type="checkbox" class="form-check-input" id="ds">
                     <label class="form-check-label" for="ds">Convert surges to block</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Roll dice!</button>
+                <p>
+                    <button class="btn btn-light btn-sm" type="button" data-toggle="collapse" data-target="#defendAdvanced" aria-expanded="false" aria-controls="collapseExample">Advanced</button>
+                </p>
+                <div class="collapse" id="defendAdvanced">
+                    <div class="form-group">
+                        <label for="r">Dogde tokens</label>
+                        <input type="number" class="form-control" id="dodge" value="0" min="0" max="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="r">Cover</label>
+                        <input type="number" class="form-control" id="cover" value="0" min="0" max="2">
+                    </div>
+                    <div class="form-group">
+                        <label for="r" class="keyword">Cover X</label>
+                        <input type="number" class="form-control" id="coverX" value="0" min="0" max="2">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-dark">Roll dice!</button>
             </form>
         </div>
         <div class="col-lg-9">
@@ -137,14 +171,25 @@
 
     $('#diceForm').submit((e) => {
         e.preventDefault()
+        // dice
         const r = $('#r').val()
         const b = $('#b').val()
         const w = $('#w').val()
         const as = $('#as').val()
         const d = $('#d').val()
         const ds = $('#ds').val()
+        const cover = $('#cover').val()
+        // tokens
+        const aim = $('#aim').val()
+        const dodge = $('#dodge').val()
+        // keywords
+        const preciseX = $('#preciseX').val()
+        const coverX = $('#coverX').val()
 
-        const url = `https://us-central1-legion-dice.cloudfunctions.net/dice?r=${r}&b=${b}&w=${w}&as=${as}&d=${d}&ds=${ds}`
+        const dice = `r=${r}&b=${b}&w=${w}&as=${as}&d=${d}&ds=${ds}&cover=${cover}`
+        const tokens = `aim=${aim}&dodge=${dodge}`
+        const keywords = `preciseX=${preciseX}&coverX=${coverX}`
+        const url = `https://us-central1-legion-dice.cloudfunctions.net/dice?${dice}&${tokens}&${keywords}`
 
         $.get(url, (res) => {
             console.log(res)
