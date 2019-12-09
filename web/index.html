@@ -35,14 +35,14 @@
 </head>
 <body>
 <div class="container-fluid">
-    <h1>Legion dice simulator</h1>
+    <h1 class="mb-4 text-uppercase">Legion dice simulator</h1>
     <p>
         This site will try the given dice pools a million times to come to a concrete average. The given results are the expected
         average remaining hits after defense dice have been applied. The shown dice results are the first 25 simulated dice rolls
     </p>
     <div class="row">
         <div class="col-lg-3">
-            <form id="diceForm">
+            <form id="diceForm" class="shadow-lg p-3">
                 <h3>Attack</h3>
                 <div class="form-group">
                     <label for="r">Number of red dice</label>
@@ -76,26 +76,28 @@
                     <input type="checkbox" class="form-check-input" id="ds">
                     <label class="form-check-label" for="ds">Convert surges to block</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Roll dice!</button>
             </form>
         </div>
-        <div class="col-lg-9    ">
-            <h3>Results</h3>
-            <div id="successes">
-
-            </div>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>#</th>
-                            <th>Attack</th>
-                            <th>Defense</th>
-                        </tr>
-                    </thead>
-                    <tbody id="rolls">
-                    </tbody>
-                </table>
+        <div class="col-lg-9">
+            <div class="shadow-lg p-3">
+                <h3>Results</h3>
+                <div id="successes" class="card mb-2 mt-2 pt-3 pl-3 pr-3 pb-2 bg-light">
+                    <h5>Roll the dice to see the results</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Attack</th>
+                                <th>Defense</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rolls">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -146,7 +148,7 @@
 
         $.get(url, (res) => {
             console.log(res)
-            let successes = `<h5>The average number of hits on this attack is <strong>${res.Successes}</strong> hits</h5>`
+            let successes = `<h5>The average number of hits on this attack is <span class="badge badge-dark">${res.Successes}</span> hits</h5>`
             let results = ''
 
             for (let i = 0;  i < res.Rolls.length; i++) {
