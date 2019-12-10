@@ -12,10 +12,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+    <meta content="test">
     <style type="text/css">
         .dice {
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
         }
 
         .keyword {
@@ -24,117 +25,123 @@
 
         @media only screen and (min-width: 768px){
             .dice {
-                width: 60px;
-                height: 60px;
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
             }
         }
 
         @media only screen and (min-width: 1600px){
             .dice {
-                width: 80px;
-                height: 80px;
+                width: 60px;
+                height: 60px;
             }
         }
     </style>
 </head>
 <body>
-<h1 class="mb-4 text-uppercase card p-3 shadow-lg">Legion dice simulator</h1>
+<h1 class="mb-4 card p-3 shadow-lg bg-dark text-light font-weight-light text-uppercase">Legion dice simulator</h1>
 <div class="container-fluid">
     <p>
-        This site will try the given dice pools 10000 times to come to a concrete average. The given results are the expected
-        average remaining hits after defense dice have been applied. The shown dice results are the first 25 simulated dice rolls
+        This site will simulate an attack in Star Wars Legion. It will try the given dice pools 100000 times to come to a concrete average. The given results are the expected
+        average remaining hits after defense dice have been applied. The shown dice results are the first 25 simulated dice rolls before any applied rerolls, conversions or modifications.
+        Click on the dice to see the modified results
     </p>
-    <div class="row">
-        <div class="col-lg-3">
-            <form id="diceForm" class="shadow-lg p-3">
-                <h3>Attack</h3>
-                <div class="form-group">
-                    <label for="r">Number of red dice</label>
-                    <input type="number" class="form-control" id="r" value="3" min="0" max="10">
-                </div>
-                <div class="form-group">
-                    <label for="b">Number of black dice</label>
-                    <input type="number" class="form-control" id="b" value="0" min="0" max="10">
-                </div>
-                <div class="form-group">
-                    <label for="w">Number of white dice</label>
-                    <input type="number" class="form-control" id="w" value="0" min="0" max="10">
-                </div>
-                <div class="form-group">
-                    <label for="as">Convert surges to</label>
-                    <select class="form-control" id="as">
-                        <option value="">Nothing</option>
-                        <option value="hits">Hits</option>
-                        <option value="crits">Crits</option>
-                    </select>
-                </div>
-                <p>
-                    <button class="btn btn-light btn-sm" type="button" data-toggle="collapse" data-target="#attackAdvanced" aria-expanded="false" aria-controls="collapseExample">Advanced</button>
-                </p>
-                <div class="collapse" id="attackAdvanced">
+    <form id="diceForm">
+        <div class="row">
+            <div class="col-lg-3 shadow-lg p-3">
+                    <h3 class=" font-weight-light">Attack</h3>
                     <div class="form-group">
-                        <label for="r">Aim tokens</label>
-                        <input type="number" class="form-control" id="aim" value="0" min="0" max="10">
+                        <label for="r">Number of red dice</label>
+                        <input type="number" class="form-control" id="r" value="3" min="0" max="10">
                     </div>
                     <div class="form-group">
-                        <label for="r" class="keyword">Precise X</label>
-                        <input type="number" class="form-control" id="preciseX" value="0" min="0" max="10">
-                    </div>
-                </div>
-                <h3>Defense</h3>
-                <div class="form-group">
-                    <label for="d">Defend with</label>
-                    <select class="form-control" id="d">
-                        <option value="white">White</option>
-                        <option value="red">Red</option>
-                    </select>
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="ds">
-                    <label class="form-check-label" for="ds">Convert surges to block</label>
-                </div>
-                <p>
-                    <button class="btn btn-light btn-sm" type="button" data-toggle="collapse" data-target="#defendAdvanced" aria-expanded="false" aria-controls="collapseExample">Advanced</button>
-                </p>
-                <div class="collapse" id="defendAdvanced">
-                    <div class="form-group">
-                        <label for="r">Dogde tokens</label>
-                        <input type="number" class="form-control" id="dodge" value="0" min="0" max="10">
+                        <label for="b">Number of black dice</label>
+                        <input type="number" class="form-control" id="b" value="0" min="0" max="10">
                     </div>
                     <div class="form-group">
-                        <label for="r">Cover</label>
-                        <input type="number" class="form-control" id="cover" value="0" min="0" max="2">
+                        <label for="w">Number of white dice</label>
+                        <input type="number" class="form-control" id="w" value="0" min="0" max="10">
                     </div>
                     <div class="form-group">
-                        <label for="r" class="keyword">Cover X</label>
-                        <input type="number" class="form-control" id="coverX" value="0" min="0" max="2">
+                        <label for="as">Convert surges to</label>
+                        <select class="form-control" id="as">
+                            <option value="">Nothing</option>
+                            <option value="hits">Hits</option>
+                            <option value="crits">Crits</option>
+                        </select>
                     </div>
-                </div>
-                <button type="submit" class="btn btn-dark">Roll dice!</button>
-            </form>
-        </div>
-        <div class="col-lg-9">
-            <div class="shadow-lg p-3">
-                <h3>Results</h3>
-                <div id="successes" class="card mb-2 mt-2 pt-3 pl-3 pr-3 pb-2 bg-light">
-                    <h5>Roll the dice to see the results</h5>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>#</th>
-                                <th>Attack</th>
-                                <th>Defense</th>
-                            </tr>
-                        </thead>
-                        <tbody id="rolls">
-                        </tbody>
-                    </table>
+                    <p>
+                        <button class="btn btn-light btn-sm" type="button" data-toggle="collapse" data-target="#attackAdvanced" aria-expanded="false" aria-controls="collapseExample">Advanced</button>
+                    </p>
+                    <div class="collapse" id="attackAdvanced">
+                        <div class="form-group">
+                            <label for="r">Aim tokens</label>
+                            <input type="number" class="form-control" id="aim" value="0" min="0" max="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="r" class="keyword">Precise X</label>
+                            <input type="number" class="form-control" id="preciseX" value="0" min="0" max="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="r" class="keyword">Pierce X</label>
+                            <input type="number" class="form-control" id="pierceX" value="0" min="0" max="10">
+                        </div>
+                    </div>
+                    <h3 class=" font-weight-light">Defense</h3>
+                    <div class="form-group">
+                        <label for="d">Defend with</label>
+                        <select class="form-control" id="d">
+                            <option value="white">White</option>
+                            <option value="red">Red</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="ds">
+                        <label class="form-check-label" for="ds">Convert surges to block</label>
+                    </div>
+                    <p>
+                        <button class="btn btn-light btn-sm" type="button" data-toggle="collapse" data-target="#defendAdvanced" aria-expanded="false" aria-controls="collapseExample">Advanced</button>
+                    </p>
+                    <div class="collapse" id="defendAdvanced">
+                        <div class="form-group">
+                            <label for="r">Dogde tokens</label>
+                            <input type="number" class="form-control" id="dodge" value="0" min="0" max="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="r">Cover</label>
+                            <input type="number" class="form-control" id="cover" value="0" min="0" max="2">
+                        </div>
+                        <div class="form-group">
+                            <label for="r" class="keyword">Cover X</label>
+                            <input type="number" class="form-control" id="coverX" value="0" min="0" max="2">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-dark">Roll dice!</button>
+            </div>
+            <div class="col-lg-9">
+                <div class="shadow-lg p-3">
+                    <div id="successes" class="card mb-3 pt-3 pl-3 pr-3 pb-2 bg-light">
+                        <h5>Roll the dice to see the results... <button type="submit" class="btn btn-dark float-right">Roll dice!</button></h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Attack</th>
+                                    <th>Defense</th>
+                                    <th>Hits</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rolls">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <script>
@@ -185,10 +192,11 @@
         // keywords
         const preciseX = $('#preciseX').val()
         const coverX = $('#coverX').val()
+        const pierceX = $('#pierceX').val()
 
         const dice = `r=${r}&b=${b}&w=${w}&as=${as}&d=${d}&ds=${ds}&cover=${cover}`
         const tokens = `aim=${aim}&dodge=${dodge}`
-        const keywords = `preciseX=${preciseX}&coverX=${coverX}`
+        const keywords = `preciseX=${preciseX}&coverX=${coverX}&pierceX=${pierceX}`
         const url = `https://us-central1-legion-dice.cloudfunctions.net/dice?${dice}&${tokens}&${keywords}`
 
         $.get(url, (res) => {
@@ -197,7 +205,24 @@
             let results = ''
 
             for (let i = 0;  i < res.Rolls.length; i++) {
-                results += `<tr><th>${i+1}</th><td>${convertAttackDice(res.Rolls[i].Attack)}</td><td>${convertDefenseDice(res.Rolls[i].Defense)}</td></tr>`
+                results += `<tr>
+                                <th>${i+1}</th>
+                                <td>
+                                    <div data-toggle="collapse" data-target="#ad${i},#dd${i}">${convertAttackDice(res.Rolls[i].Attack)}</div>
+                                    <div class="collapse" id="ad${i}">
+                                        ${convertAttackDice(res.Rolls[i].AttackAfter)}<br>
+                                        <small class="badge badge-info">Modified result</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div data-toggle="collapse" data-target="#ad${i},#dd${i}">${convertDefenseDice(res.Rolls[i].Defense)}</div>
+                                    <div class="collapse" id="dd${i}">
+                                        ${convertDefenseDice(res.Rolls[i].DefenseAfter)}<br>
+                                        <small class="badge badge-info">Modified result</small>
+                                    </div>
+                                </td>
+                                <td>${res.Rolls[i].Hits}</td>
+                            </tr>`
             }
 
             $('#successes').html(successes)
