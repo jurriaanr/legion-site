@@ -1,3 +1,5 @@
-https://cloud.google.com/storage/docs/hosting-static-website
+First make sure you have the Firebase CLI installed (https://firebase.google.com/docs/cli#install_the_firebase_cli) and you are logged in.
 
-https://search.google.com/search-console/welcome
+Than do:
+
+    firebase deploy
