@@ -135,7 +135,7 @@
             <div class="col-lg-9">
                 <div class="shadow-lg p-3">
                     <div id="successes" class="card mb-3 pt-3 pl-3 pr-3 pb-2 bg-light">
-                        <h5>Roll the dice to see the results... <button type="submit" class="btn btn-dark float-right">Roll dice!</button></h5>
+                        <h5 class=" font-weight-light">Roll the dice to see the results... <button type="submit" class="btn btn-dark float-right">Roll dice!</button></h5>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -215,7 +215,7 @@
         const url = `https://us-central1-legion-dice.cloudfunctions.net/dice?${dice}&${tokens}&${keywords}`
 
         $.get(url, (res) => {
-            let successes = `<h5>The average number of hits on this attack is <span class="badge badge-dark">${res.Successes}</span> hits</h5>`
+            let successes = `<h5 class="font-weight-light">The average number of hits on this attack is <span class="badge badge-dark">${res.Successes}</span> hits</h5>`
             let results = ''
 
             for (let i = 0;  i < res.Rolls.length; i++) {
