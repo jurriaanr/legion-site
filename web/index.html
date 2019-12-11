@@ -1,5 +1,10 @@
 <html>
 <head>
+    <title>Legion dice simulator</title>
+    <meta name="description" content="This site will simulate an attack in Star Wars Legion. It will try the given dice pools 100000 times in a couple of seconds to come to a concrete average">
+    <meta name="keywords" content="star wars legion dice roll attack defense surge simulator test automated">
+    <meta name="web_author" content="Jurriaan Ruitenberg">
+    <meta name="viewport" content="initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script
@@ -12,7 +17,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-    <meta content="test">
+    <link rel="icon" type="image/png" href="favicon.png" />
     <style type="text/css">
         .dice {
             width: 30px;
@@ -210,7 +215,6 @@
         const url = `https://us-central1-legion-dice.cloudfunctions.net/dice?${dice}&${tokens}&${keywords}`
 
         $.get(url, (res) => {
-            console.log(res)
             let successes = `<h5>The average number of hits on this attack is <span class="badge badge-dark">${res.Successes}</span> hits</h5>`
             let results = ''
 
@@ -218,15 +222,15 @@
                 results += `<tr>
                                 <th>${i+1}</th>
                                 <td>
-                                    <div data-toggle="collapse" data-target="#ad${i},#dd${i}">${convertAttackDice(res.Rolls[i].Attack)}</div>
-                                    <div class="collapse" id="ad${i}">
+                                    <div data-toggle="collapse" data-target="#attackdice${i},#defensdice${i}">${convertAttackDice(res.Rolls[i].Attack)}</div>
+                                    <div class="collapse" id="attackdice${i}">
                                         ${convertAttackDice(res.Rolls[i].AttackAfter)}<br>
                                         <small class="badge badge-info">Modified result</small>
                                     </div>
                                 </td>
                                 <td>
-                                    <div data-toggle="collapse" data-target="#ad${i},#dd${i}">${convertDefenseDice(res.Rolls[i].Defense)}</div>
-                                    <div class="collapse" id="dd${i}">
+                                    <div data-toggle="collapse" data-target="#attackdice${i},#defensdice${i}">${convertDefenseDice(res.Rolls[i].Defense)}</div>
+                                    <div class="collapse" id="defensdice${i}">
                                         ${convertDefenseDice(res.Rolls[i].DefenseAfter)}<br>
                                         <small class="badge badge-info">Modified result</small>
                                     </div>
@@ -239,6 +243,25 @@
             $('#rolls').html(results)
         }, 'json')
     })
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-analytics.js"></script>
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyDmzztfSQoQAG_YJH85o3sgwS7F5rAjdWU",
+        authDomain: "legion-dice.firebaseapp.com",
+        databaseURL: "https://legion-dice.firebaseio.com",
+        projectId: "legion-dice",
+        storageBucket: "legion-dice.appspot.com",
+        messagingSenderId: "593119950085",
+        appId: "1:593119950085:web:a3b82514be80ec5287336c",
+        measurementId: "G-V8GHNM3HVT"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
 </script>
 </body>
 </html>
