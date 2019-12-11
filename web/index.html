@@ -53,19 +53,19 @@
                     <h3 class=" font-weight-light">Attack</h3>
                     <div class="form-group">
                         <label for="r">Number of red dice</label>
-                        <input type="number" class="form-control" id="r" value="3" min="0" max="10">
+                        <input type="number" class="form-control form-control-sm" id="r" value="3" min="0" max="10">
                     </div>
                     <div class="form-group">
                         <label for="b">Number of black dice</label>
-                        <input type="number" class="form-control" id="b" value="0" min="0" max="10">
+                        <input type="number" class="form-control form-control-sm" id="b" value="0" min="0" max="10">
                     </div>
                     <div class="form-group">
                         <label for="w">Number of white dice</label>
-                        <input type="number" class="form-control" id="w" value="0" min="0" max="10">
+                        <input type="number" class="form-control form-control-sm" id="w" value="0" min="0" max="10">
                     </div>
                     <div class="form-group">
                         <label for="as">Convert surges to</label>
-                        <select class="form-control" id="as">
+                        <select class="form-control form-control-sm" id="as">
                             <option value="">Nothing</option>
                             <option value="hits">Hits</option>
                             <option value="crits">Crits</option>
@@ -76,22 +76,30 @@
                     </p>
                     <div class="collapse" id="attackAdvanced">
                         <div class="form-group">
-                            <label for="r">Aim tokens</label>
-                            <input type="number" class="form-control" id="aim" value="0" min="0" max="10">
+                            <label for="aim">Aim tokens</label>
+                            <input type="number" class="form-control form-control-sm" id="aim" value="0" min="0" max="10">
                         </div>
                         <div class="form-group">
-                            <label for="r" class="keyword">Precise X</label>
-                            <input type="number" class="form-control" id="preciseX" value="0" min="0" max="10">
+                            <label for="preciseX" class="keyword">Precise X</label>
+                            <input type="number" class="form-control form-control-sm" id="preciseX" value="0" min="0" max="10">
                         </div>
                         <div class="form-group">
-                            <label for="r" class="keyword">Pierce X</label>
-                            <input type="number" class="form-control" id="pierceX" value="0" min="0" max="10">
+                            <label for="pierceX" class="keyword">Pierce X</label>
+                            <input type="number" class="form-control form-control-sm" id="pierceX" value="0" min="0" max="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="criticalX" class="keyword">Critical X</label>
+                            <input type="number" class="form-control form-control-sm" id="criticalX" value="0" min="0" max="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="ramX" class="keyword">Ram X</label>
+                            <input type="number" class="form-control form-control-sm" id="ramX" value="0" min="0" max="10">
                         </div>
                     </div>
                     <h3 class=" font-weight-light">Defense</h3>
                     <div class="form-group">
                         <label for="d">Defend with</label>
-                        <select class="form-control" id="d">
+                        <select class="form-control form-control-sm" id="d">
                             <option value="white">White</option>
                             <option value="red">Red</option>
                         </select>
@@ -106,15 +114,15 @@
                     <div class="collapse" id="defendAdvanced">
                         <div class="form-group">
                             <label for="r">Dogde tokens</label>
-                            <input type="number" class="form-control" id="dodge" value="0" min="0" max="10">
+                            <input type="number" class="form-control form-control-sm" id="dodge" value="0" min="0" max="10">
                         </div>
                         <div class="form-group">
                             <label for="r">Cover</label>
-                            <input type="number" class="form-control" id="cover" value="0" min="0" max="2">
+                            <input type="number" class="form-control form-control-sm" id="cover" value="0" min="0" max="2">
                         </div>
                         <div class="form-group">
                             <label for="r" class="keyword">Cover X</label>
-                            <input type="number" class="form-control" id="coverX" value="0" min="0" max="2">
+                            <input type="number" class="form-control form-control-sm" id="coverX" value="0" min="0" max="2">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-dark">Roll dice!</button>
@@ -191,12 +199,14 @@
         const dodge = $('#dodge').val()
         // keywords
         const preciseX = $('#preciseX').val()
-        const coverX = $('#coverX').val()
         const pierceX = $('#pierceX').val()
+        const criticalX = $('#criticalX').val()
+        const ramX = $('#ramX').val()
+        const coverX = $('#coverX').val()
 
         const dice = `r=${r}&b=${b}&w=${w}&as=${as}&d=${d}&ds=${ds}&cover=${cover}`
         const tokens = `aim=${aim}&dodge=${dodge}`
-        const keywords = `preciseX=${preciseX}&coverX=${coverX}&pierceX=${pierceX}`
+        const keywords = `preciseX=${preciseX}&pierceX=${pierceX}&criticalX=${criticalX}&ramX=${ramX}&coverX=${coverX}`
         const url = `https://us-central1-legion-dice.cloudfunctions.net/dice?${dice}&${tokens}&${keywords}`
 
         $.get(url, (res) => {
@@ -228,8 +238,6 @@
             $('#successes').html(successes)
             $('#rolls').html(results)
         }, 'json')
-
-
     })
 </script>
 </body>
