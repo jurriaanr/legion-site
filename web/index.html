@@ -241,6 +241,7 @@
 
             $('#successes').html(successes)
             $('#rolls').html(results)
+            $('html,body').animate({scrollTop: $('#successes').offset().top});
         }, 'json')
     })
 </script>
