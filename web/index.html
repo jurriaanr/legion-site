@@ -49,7 +49,7 @@
 <div class="container-fluid">
     <p>
         This site will simulate an attack in Star Wars Legion. It will try the given dice pools 100000 times to come to a concrete average. The given results are the expected
-        average remaining hits after defense dice have been applied. The shown dice results are the first 25 simulated dice rolls. They are shown before any applied rerolls,
+        average remaining hits after defense dice have been applied. The shown dice results are the first 25 simulated dice rolls. The results are before any applied rerolls,
         conversions or modifications. Click on the dice to see the modified results for that roll.
     </p>
     <form id="diceForm">
@@ -166,12 +166,15 @@
                             <input type="number" class="form-control form-control-sm" id="uncannyLuckX" value="0" min="0" max="10">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-dark">Roll dice!</button>
+                    <button type="submit" id="roll1" class="btn btn-dark roll">Roll dice!</button>
             </div>
             <div class="col-lg-9">
                 <div class="shadow-lg p-3">
                     <div class="card mb-3 pt-3 pl-3 pr-3 pb-2 bg-light" id="successesContainer">
-                        <h5 class=" font-weight-light"><span id="successes">Roll the dice to see the results...</span><button type="submit" class="btn btn-dark btn-sm float-right">Roll dice!</button></h5>
+                        <h5 class=" font-weight-light">
+                            <span id="successes">Roll the dice to see the results...</span>
+                            <button id="roll2" type="submit" class="btn btn-dark btn-sm float-right roll">Roll dice!</button>
+                        </h5>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -231,6 +234,7 @@
 
     $('#diceForm').submit((e) => {
         e.preventDefault()
+
         // dice
         const r = $('#r').val()
         const b = $('#b').val()
@@ -265,6 +269,12 @@
         const defenseKeywords = `coverX=${coverX}&armorX=${armorX}&uncannyLuckX=${uncannyLuckX}&armor=${armor}&impervious=${impervious}`
         const keywords = `${attackKeywords}&${defenseKeywords}`
         const url = `https://us-central1-legion-dice.cloudfunctions.net/dice?${dice}&${tokens}&${keywords}`
+
+        gtag('event', 'roll', {
+            'event_category' : 'Rolls',
+            'event_label' : 'clicked on ' + (document.activeElement ? document.activeElement.id : '??'),
+            'value' : parseInt(r) + parseInt(b) + parseInt(w)
+        });
 
         $.get(url, (res) => {
             let successes = `The average number of hits on this attack is <span class="badge badge-dark">${res.Successes}</span> hits`
