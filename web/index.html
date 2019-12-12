@@ -80,25 +80,41 @@
                         <button class="btn btn-light btn-sm" type="button" data-toggle="collapse" data-target="#attackAdvanced" aria-expanded="false" aria-controls="collapseExample">Advanced</button>
                     </p>
                     <div class="collapse" id="attackAdvanced">
-                        <div class="form-group">
+                        <div class="form-group" title="A unit can spend one or more aim tokens to reroll up to two dice for each aim token spent">
                             <label for="aim">Aim tokens</label>
                             <input type="number" class="form-control form-control-sm" id="aim" value="0" min="0" max="10">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group form-check" title="Ignore cover">
+                            <input type="checkbox" class="form-check-input" id="blast">
+                            <label class="form-check-label keyword" for="blast">Blast</label>
+                        </div>
+                        <div class="form-group form-check" title="While attacking, if each weapon in your attack pool has High Velocity, the defender cannot spend dodge tokens">
+                            <input type="checkbox" class="form-check-input" id="highVelocity">
+                            <label class="form-check-label keyword" for="highVelocity">High Velocity</label>
+                        </div>
+                        <div class="form-group" title="When you spend an aim token, reroll up to X additional die/dice">
                             <label for="preciseX" class="keyword">Precise X</label>
                             <input type="number" class="form-control form-control-sm" id="preciseX" value="0" min="0" max="10">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" title="Ignore up to X block results.">
                             <label for="pierceX" class="keyword">Pierce X</label>
                             <input type="number" class="form-control form-control-sm" id="pierceX" value="0" min="0" max="10">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" title="While attacking a unit that has Armor, change up to X hits to crits">
+                            <label for="impactX" class="keyword">Impact X</label>
+                            <input type="number" class="form-control form-control-sm" id="impactX" value="0" min="0" max="10">
+                        </div>
+                        <div class="form-group" title="While converting surges, change up to X hit results to crit">
                             <label for="criticalX" class="keyword">Critical X</label>
                             <input type="number" class="form-control form-control-sm" id="criticalX" value="0" min="0" max="10">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" title="If you performed a full standard move at your maximum sped before this attack, you may turn 1 attack die to a crit">
                             <label for="ramX" class="keyword">Ram X</label>
                             <input type="number" class="form-control form-control-sm" id="ramX" value="0" min="0" max="10">
+                        </div>
+                        <div class="form-group" title="While performing a ranged attack, reduce the defender’s cover by X">
+                            <label for="sharpshooterX" class="keyword">Sharpshooter X</label>
+                            <input type="number" class="form-control form-control-sm" id="sharpshooterX" value="0" min="0" max="10">
                         </div>
                     </div>
                     <h3 class=" font-weight-light">Defense</h3>
@@ -117,25 +133,45 @@
                         <button class="btn btn-light btn-sm" type="button" data-toggle="collapse" data-target="#defendAdvanced" aria-expanded="false" aria-controls="collapseExample">Advanced</button>
                     </p>
                     <div class="collapse" id="defendAdvanced">
-                        <div class="form-group">
-                            <label for="r">Dogde tokens</label>
+                        <div class="form-group" title="During the 'Apply Dodge and Cover' step, you can spend one or more dodge tokens to cancel one hit for each dodge token spent">
+                            <label for="dodge">Dogde tokens</label>
                             <input type="number" class="form-control form-control-sm" id="dodge" value="0" min="0" max="10">
                         </div>
-                        <div class="form-group">
-                            <label for="r">Cover</label>
+                        <div class="form-group" title="During the 'Apply Dodge and Cover' step of a ranged attack, light cover can cancel one hit, heavy cover cancels up to two hits">
+                            <label for="cover">Cover</label>
                             <input type="number" class="form-control form-control-sm" id="cover" value="0" min="0" max="2">
                         </div>
-                        <div class="form-group">
-                            <label for="r" class="keyword">Cover X</label>
+                        <div class="form-group form-check" title="While defending, cancel all hit results">
+                            <input type="checkbox" class="form-check-input" id="armor">
+                            <label class="form-check-label keyword" for="armor">Armor</label>
+                        </div>
+                        <div class="form-group form-check" title="While defending, if you have light cover, improve your cover by 1">
+                            <input type="checkbox" class="form-check-input" id="lowProfile">
+                            <label class="form-check-label keyword" for="lowProfile">Low Profile</label>
+                        </div>
+                        <div class="form-group form-check" title="While defending, if the attack pool has Pierce X, roll x additional dice">
+                            <input type="checkbox" class="form-check-input" id="impervious">
+                            <label class="form-check-label keyword" for="impervious">Impervious</label>
+                        </div>
+                        <div class="form-group" title="While defending against a ranged attack, improve your cover by X">
+                            <label for="coverX" class="keyword">Cover X</label>
                             <input type="number" class="form-control form-control-sm" id="coverX" value="0" min="0" max="2">
+                        </div>
+                        <div class="form-group" title="While defending, cancel X hit results">
+                            <label for="armorX" class="keyword">Armor X</label>
+                            <input type="number" class="form-control form-control-sm" id="armorX" value="0" min="0" max="10">
+                        </div>
+                        <div class="form-group" title="While defending, you may reroll up to X defense dice">
+                            <label for="uncannyLuckX" class="keyword">Uncanny Luck X</label>
+                            <input type="number" class="form-control form-control-sm" id="uncannyLuckX" value="0" min="0" max="10">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-dark">Roll dice!</button>
             </div>
             <div class="col-lg-9">
                 <div class="shadow-lg p-3">
-                    <div id="successes" class="card mb-3 pt-3 pl-3 pr-3 pb-2 bg-light">
-                        <h5 class=" font-weight-light">Roll the dice to see the results... <button type="submit" class="btn btn-dark float-right">Roll dice!</button></h5>
+                    <div class="card mb-3 pt-3 pl-3 pr-3 pb-2 bg-light" id="successesContainer">
+                        <h5 class=" font-weight-light"><span id="successes">Roll the dice to see the results...</span><button type="submit" class="btn btn-dark btn-sm float-right">Roll dice!</button></h5>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -184,6 +220,10 @@
             }
         }
 
+        if (images.length === 0) {
+            images.push('N')
+        }
+
         return images.map((fileName) => {
             return `<img src="/img/${fileName}.png" alt="${fileName}" class="dice">`
         }).join('')
@@ -197,25 +237,37 @@
         const w = $('#w').val()
         const as = $('#as').val()
         const d = $('#d').val()
-        const ds = $('#ds').val()
+        const ds = $('#ds').is(':checked')
         const cover = $('#cover').val()
         // tokens
         const aim = $('#aim').val()
         const dodge = $('#dodge').val()
-        // keywords
+        // attack keywords
         const preciseX = $('#preciseX').val()
         const pierceX = $('#pierceX').val()
+        const impactX = $('#impactX').val()
         const criticalX = $('#criticalX').val()
+        const sharpshooterX = $('#sharpshooterX').val()
         const ramX = $('#ramX').val()
+        const blast = $('#blast').is(':checked')
+        const highVelocity = $('#highVelocity').is(':checked')
+
+        // defensive keywords
+        const armor = $('#armor').is(':checked')
+        const impervious = $('#impervious').is(':checked')
         const coverX = $('#coverX').val()
+        const armorX = $('#armorX').val()
+        const uncannyLuckX = $('#uncannyLuckX').val()
 
         const dice = `r=${r}&b=${b}&w=${w}&as=${as}&d=${d}&ds=${ds}&cover=${cover}`
         const tokens = `aim=${aim}&dodge=${dodge}`
-        const keywords = `preciseX=${preciseX}&pierceX=${pierceX}&criticalX=${criticalX}&ramX=${ramX}&coverX=${coverX}`
+        const attackKeywords = `preciseX=${preciseX}&pierceX=${pierceX}&criticalX=${criticalX}&ramX=${ramX}&impactX=${impactX}&blast=${blast}&highVelocity=${highVelocity}&sharpshooterX=${sharpshooterX}`
+        const defenseKeywords = `coverX=${coverX}&armorX=${armorX}&uncannyLuckX=${uncannyLuckX}&armor=${armor}&impervious=${impervious}`
+        const keywords = `${attackKeywords}&${defenseKeywords}`
         const url = `https://us-central1-legion-dice.cloudfunctions.net/dice?${dice}&${tokens}&${keywords}`
 
         $.get(url, (res) => {
-            let successes = `<h5 class="font-weight-light">The average number of hits on this attack is <span class="badge badge-dark">${res.Successes}</span> hits</h5>`
+            let successes = `The average number of hits on this attack is <span class="badge badge-dark">${res.Successes}</span> hits`
             let results = ''
 
             for (let i = 0;  i < res.Rolls.length; i++) {
@@ -225,14 +277,14 @@
                                     <div data-toggle="collapse" data-target="#attackdice${i},#defensdice${i}">${convertAttackDice(res.Rolls[i].Attack)}</div>
                                     <div class="collapse" id="attackdice${i}">
                                         ${convertAttackDice(res.Rolls[i].AttackAfter)}<br>
-                                        <small class="badge badge-info">Modified result</small>
+                                        <small class="badge badge-light">Modified</small>
                                     </div>
                                 </td>
                                 <td>
                                     <div data-toggle="collapse" data-target="#attackdice${i},#defensdice${i}">${convertDefenseDice(res.Rolls[i].Defense)}</div>
                                     <div class="collapse" id="defensdice${i}">
                                         ${convertDefenseDice(res.Rolls[i].DefenseAfter)}<br>
-                                        <small class="badge badge-info">Modified result</small>
+                                        <small class="badge badge-light">Modified</small>
                                     </div>
                                 </td>
                                 <td>${res.Rolls[i].Hits}</td>
@@ -241,7 +293,7 @@
 
             $('#successes').html(successes)
             $('#rolls').html(results)
-            $('html,body').animate({scrollTop: $('#successes').offset().top});
+            $('html,body').animate({scrollTop: $('#successesContainer').offset().top});
         }, 'json')
     })
 </script>
