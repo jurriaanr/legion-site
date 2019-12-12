@@ -246,23 +246,14 @@
     })
 </script>
 
-<script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-analytics.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154489572-1"></script>
 <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-        apiKey: "AIzaSyDmzztfSQoQAG_YJH85o3sgwS7F5rAjdWU",
-        authDomain: "legion-dice.firebaseapp.com",
-        databaseURL: "https://legion-dice.firebaseio.com",
-        projectId: "legion-dice",
-        storageBucket: "legion-dice.appspot.com",
-        messagingSenderId: "593119950085",
-        appId: "1:593119950085:web:a3b82514be80ec5287336c",
-        measurementId: "G-V8GHNM3HVT"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-154489572-1', { 'anonymize_ip': true });
 </script>
+
 </body>
 </html>
