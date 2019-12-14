@@ -306,6 +306,12 @@
     const saveDiceViewMode = (val) => {
         cookies.setCookie('diceViewMode', val, 365);
         setDiceViewModeTxt()
+
+        gtag('event', 'viewMode', {
+            'event_category' : 'View',
+            'event_label' : 'changed dice view mode to ' + val,
+            'value' : val
+        });
     }
 
     const setDiceViewModeTxt = () => {
