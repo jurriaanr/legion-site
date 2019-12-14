@@ -73,13 +73,13 @@
             </a>
             <div class="dropdown-menu p-3" aria-labelledby="dropdownMenuLink">
                 <div class="form-check">
-                    <input class="form-check-input diceViewMode" type="radio" id="diceUnmoddedFirst" value="unmodded" checked>
+                    <input class="form-check-input diceViewMode" type="radio" id="diceUnmoddedFirst" value="unmodded" name="diceViewMode" checked>
                     <label class="form-check-label" for="diceUnmoddedFirst">
                         Show dice before modifications first
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input diceViewMode" type="radio" id="diceModdedFirst" value="modded">
+                    <input class="form-check-input diceViewMode" type="radio" id="diceModdedFirst" value="modded" name="diceViewMode">
                     <label class="form-check-label" for="diceModdedFirst">
                         Show dice after modifications first
                     </label>
@@ -272,7 +272,15 @@
     }
 
     const saveDiceViewMode = (val) => {
-        return cookies.setCookie('diceViewMode', val, 365);
+        cookies.setCookie('diceViewMode', val, 365);
+        setDiceViewModeTxt()
+    }
+
+    const setDiceViewModeTxt = () => {
+        $('#diceViewModeTxt').html(getDiceViewMode() === 'unmodded' ?
+            'The results on the next roll are <em>before</em> any applied rerolls, conversions or modifications. Click on the dice to see the modified results for that roll' :
+            'The results on the next roll are <em>after</em> any applied rerolls, conversions or modifications. Click on the dice to see the unmodified results for that roll'
+        )
     }
 
     const convertAttackDice = (result) => {
@@ -322,16 +330,12 @@
         }).join('')
     }
 
-    $('.diceViewMode').attr('checked', false).click((e) => {
+    $('.diceViewMode').click((e) => {
         saveDiceViewMode($(e.target).val())
     })
 
     $('.diceViewMode[value=' + getDiceViewMode() + ']').attr('checked', 'checked')
-
-    $('#diceViewModeTxt').html(getDiceViewMode() === 'unmodded' ?
-        'The results are <em>before</em> any applied rerolls, conversions or modifications. Click on the dice to see the modified results for that roll' :
-        'The results are <em>after</em> any applied rerolls, conversions or modifications. Click on the dice to see the unmodified results for that roll'
-    )
+    setDiceViewModeTxt()
 
     $('input[type=number]').on('focus', (e) => {
         const el = $(e.target)
