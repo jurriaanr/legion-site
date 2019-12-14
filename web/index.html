@@ -100,15 +100,15 @@
                     <h3 class=" font-weight-light">Attack</h3>
                     <div class="form-group">
                         <label for="r">Number of red dice</label>
-                        <input type="number" class="form-control form-control-sm" id="r" value="3" min="0" max="25">
+                        <input type="number" autocomplete="off" class="form-control form-control-sm" id="r" value="3" min="0" max="25">
                     </div>
                     <div class="form-group">
                         <label for="b">Number of black dice</label>
-                        <input type="number" class="form-control form-control-sm" id="b" value="0" min="0" max="25">
+                        <input type="number" autocomplete="off" class="form-control form-control-sm" id="b" value="0" min="0" max="25">
                     </div>
                     <div class="form-group">
                         <label for="w">Number of white dice</label>
-                        <input type="number" class="form-control form-control-sm" id="w" value="0" min="0" max="25">
+                        <input type="number" autocomplete="off" class="form-control form-control-sm" id="w" value="0" min="0" max="25">
                     </div>
                     <div class="form-group">
                         <label for="as">Convert surges to</label>
@@ -124,7 +124,7 @@
                     <div class="collapse" id="attackAdvanced">
                         <div class="form-group" title="A unit can spend one or more aim tokens to reroll up to two dice for each aim token spent">
                             <label for="aim">Aim tokens</label>
-                            <input type="number" class="form-control form-control-sm" id="aim" value="0" min="0" max="10">
+                            <input type="number" autocomplete="off" class="form-control form-control-sm" id="aim" value="0" min="0" max="10">
                         </div>
                         <div class="form-group form-check" title="Ignore cover">
                             <input type="checkbox" class="form-check-input" id="blast">
@@ -136,27 +136,27 @@
                         </div>
                         <div class="form-group" title="When you spend an aim token, reroll up to X additional die/dice">
                             <label for="preciseX" class="keyword">Precise X</label>
-                            <input type="number" class="form-control form-control-sm" id="preciseX" value="0" min="0" max="10">
+                            <input type="number" autocomplete="off" class="form-control form-control-sm" id="preciseX" value="0" min="0" max="10">
                         </div>
                         <div class="form-group" title="Ignore up to X block results.">
                             <label for="pierceX" class="keyword">Pierce X</label>
-                            <input type="number" class="form-control form-control-sm" id="pierceX" value="0" min="0" max="10">
+                            <input type="number" autocomplete="off" class="form-control form-control-sm" id="pierceX" value="0" min="0" max="10">
                         </div>
                         <div class="form-group" title="While attacking a unit that has Armor, change up to X hits to crits">
                             <label for="impactX" class="keyword">Impact X</label>
-                            <input type="number" class="form-control form-control-sm" id="impactX" value="0" min="0" max="10">
+                            <input type="number" autocomplete="off" class="form-control form-control-sm" id="impactX" value="0" min="0" max="10">
                         </div>
                         <div class="form-group" title="While converting surges, change up to X hit results to crit">
                             <label for="criticalX" class="keyword">Critical X</label>
-                            <input type="number" class="form-control form-control-sm" id="criticalX" value="0" min="0" max="10">
+                            <input type="number" autocomplete="off" class="form-control form-control-sm" id="criticalX" value="0" min="0" max="10">
                         </div>
                         <div class="form-group" title="If you performed a full standard move at your maximum sped before this attack, you may turn 1 attack die to a crit">
                             <label for="ramX" class="keyword">Ram X</label>
-                            <input type="number" class="form-control form-control-sm" id="ramX" value="0" min="0" max="10">
+                            <input type="number" autocomplete="off" class="form-control form-control-sm" id="ramX" value="0" min="0" max="10">
                         </div>
                         <div class="form-group" title="While performing a ranged attack, reduce the defender’s cover by X">
                             <label for="sharpshooterX" class="keyword">Sharpshooter X</label>
-                            <input type="number" class="form-control form-control-sm" id="sharpshooterX" value="0" min="0" max="10">
+                            <input type="number" autocomplete="off" class="form-control form-control-sm" id="sharpshooterX" value="0" min="0" max="10">
                         </div>
                     </div>
                     <h3 class=" font-weight-light">Defense</h3>
@@ -177,11 +177,11 @@
                     <div class="collapse" id="defendAdvanced">
                         <div class="form-group" title="During the 'Apply Dodge and Cover' step, you can spend one or more dodge tokens to cancel one hit for each dodge token spent">
                             <label for="dodge">Dogde tokens</label>
-                            <input type="number" class="form-control form-control-sm" id="dodge" value="0" min="0" max="10">
+                            <input type="number" autocomplete="off" class="form-control form-control-sm" id="dodge" value="0" min="0" max="10">
                         </div>
                         <div class="form-group" title="During the 'Apply Dodge and Cover' step of a ranged attack, light cover can cancel one hit, heavy cover cancels up to two hits">
                             <label for="cover">Cover</label>
-                            <input type="number" class="form-control form-control-sm" id="cover" value="0" min="0" max="2">
+                            <input type="number" autocomplete="off" class="form-control form-control-sm" id="cover" value="0" min="0" max="2">
                         </div>
                         <div class="form-group form-check" title="While defending, cancel all hit results">
                             <input type="checkbox" class="form-check-input" id="armor">
@@ -197,15 +197,15 @@
                         </div>
                         <div class="form-group" title="While defending against a ranged attack, improve your cover by X">
                             <label for="coverX" class="keyword">Cover X</label>
-                            <input type="number" class="form-control form-control-sm" id="coverX" value="0" min="0" max="2">
+                            <input type="number" autocomplete="off" class="form-control form-control-sm" id="coverX" value="0" min="0" max="2">
                         </div>
                         <div class="form-group" title="While defending, cancel X hit results">
                             <label for="armorX" class="keyword">Armor X</label>
-                            <input type="number" class="form-control form-control-sm" id="armorX" value="0" min="0" max="10">
+                            <input type="number" autocomplete="off" class="form-control form-control-sm" id="armorX" value="0" min="0" max="10">
                         </div>
                         <div class="form-group" title="While defending, you may reroll up to X defense dice">
                             <label for="uncannyLuckX" class="keyword">Uncanny Luck X</label>
-                            <input type="number" class="form-control form-control-sm" id="uncannyLuckX" value="0" min="0" max="10">
+                            <input type="number" autocomplete="off" class="form-control form-control-sm" id="uncannyLuckX" value="0" min="0" max="10">
                         </div>
                     </div>
                     <button type="submit" id="roll1" class="btn btn-dark roll">Roll dice!</button>
