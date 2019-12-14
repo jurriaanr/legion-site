@@ -268,7 +268,7 @@
     }
 
     const getDiceViewMode = () => {
-        return cookies.getCookie('diceViewMode') || $('.diceViewMode:checked').val();
+        return cookies.getCookie('diceViewMode') || 'unmodded';
     }
 
     const saveDiceViewMode = (val) => {
