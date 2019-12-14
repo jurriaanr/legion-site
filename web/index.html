@@ -48,15 +48,50 @@
                 height: 60px;
             }
         }
+
+        #chances table {
+        }
+
+        #chances table th {
+            text-align: center;
+            font-size: 0.8em;
+        }
+
+        #chances table td {
+            font-size: 0.8em;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-<h1 class="mb-4 card p-3 shadow-lg bg-dark text-light font-weight-light text-uppercase">Legion dice simulator</h1>
+<div class="mb-4 card p-3 shadow-lg bg-dark container-fluid">
+    <div class="row">
+        <h1 class="text-light font-weight-light text-uppercase col-lg-6">Legion dice simulator</h1>
+        <div class="dropdown col-lg-6">
+            <a class="btn btn-secondary btn-sm dropdown-toggle float-right" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                settings
+            </a>
+            <div class="dropdown-menu p-3" aria-labelledby="dropdownMenuLink">
+                <div class="form-check">
+                    <input class="form-check-input diceViewMode" type="radio" id="diceUnmoddedFirst" value="unmodded" checked>
+                    <label class="form-check-label" for="diceUnmoddedFirst">
+                        Show dice before modifications first
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input diceViewMode" type="radio" id="diceModdedFirst" value="modded">
+                    <label class="form-check-label" for="diceModdedFirst">
+                        Show dice after modifications first
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-fluid">
     <p>
         This site will simulate an attack in Star Wars Legion. It will try the given dice pools 100000 times to come to a concrete average. The given results are the expected
-        average remaining hits after defense dice have been applied. The shown dice results are the first 25 simulated dice rolls. The results are before any applied rerolls,
-        conversions or modifications. Click on the dice to see the modified results for that roll. Click on the advanced buttons to see more options like cover, aim, etc.
+        average remaining hits after defense dice have been applied. The shown dice results are the first 25 simulated dice rolls. <span id="diceViewModeTxt"></span>. Click on the advanced buttons to see more options like cover, aim, etc.
     </p>
     <form id="diceForm">
         <div class="row">
@@ -178,7 +213,8 @@
                 <div class="shadow-lg p-3">
                     <div class="card mb-3 pt-3 pl-3 pr-3 pb-2 bg-light" id="successesContainer">
                         <h5 class=" font-weight-light">
-                            <span id="successes">Roll the dice to see the results...</span>
+                            <div id="successes">Roll the dice to see the results...</div>
+                            <div id="chances" class="table-responsive"></div>
                             <button id="roll2" type="submit" class="btn btn-dark btn-sm float-right roll">Roll dice!</button>
                         </h5>
                     </div>
@@ -203,6 +239,42 @@
 </div>
 
 <script>
+    const cookies = {
+        setCookie : (name, value, days) => {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days*24*60*60*1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+        },
+
+        getCookie: (name) => {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i = 0, l = ca.length; i < l; i++) {
+                const c = ca[i].trim();
+                if (c.indexOf(nameEQ) === 0) {
+                    return c.substring(nameEQ.length, c.length);
+                }
+            }
+            return null;
+        },
+
+        eraseCookie : (name) => {
+            document.cookie = name+'=; Max-Age=-99999999;';
+        }
+    }
+
+    const getDiceViewMode = () => {
+        return cookies.getCookie('diceViewMode') || $('.diceViewMode:checked').val();
+    }
+
+    const saveDiceViewMode = (val) => {
+        return cookies.setCookie('diceViewMode', val, 365);
+    }
+
     const convertAttackDice = (result) => {
         const colors = ['Red', 'Black', 'White']
         const symbols = ['H', 'C', 'S', 'N']
@@ -215,6 +287,18 @@
         const symbols = ['B', 'S', 'N']
 
         return convertDice(result, colors, symbols, 'd')
+    }
+
+    const getChancesTable = (chances) => {
+        let th = '';
+        let td = '';
+
+        for (let i = 0, l = chances.length; i < l; i++) {
+            th += `<th>${i}</th>`
+            td += `<td>${Math.round(chances[i] * 10) / 10}%</td>`
+        }
+
+        return `<table class="table table-bordered table-sm mt-4"><thead class="thead-dark"><tr>${th}</tr></thead><tbody><tr>${td}</tr></tbody></table>`
     }
 
     const convertDice = (result, colors, symbols, prefix) => {
@@ -237,6 +321,30 @@
             return `<img src="/img/${fileName}.png" alt="${fileName}" class="dice">`
         }).join('')
     }
+
+    $('.diceViewMode').attr('checked', false).click((e) => {
+        saveDiceViewMode($(e.target).val())
+    })
+
+    $('.diceViewMode[value=' + getDiceViewMode() + ']').attr('checked', 'checked')
+
+    $('#diceViewModeTxt').html(getDiceViewMode() === 'unmodded' ?
+        'The results are <em>before</em> any applied rerolls, conversions or modifications. Click on the dice to see the modified results for that roll' :
+        'The results are <em>after</em> any applied rerolls, conversions or modifications. Click on the dice to see the unmodified results for that roll'
+    )
+
+    $('input[type=number]').on('focus', (e) => {
+        const el = $(e.target)
+        el.data('prev', el.val())
+        el.val('')
+    }).on('blur', (e) => {
+        const el = $(e.target)
+        if (el.val() === '') {
+            el.val(el.data('prev'))
+        } else if (parseInt(el.val()) > parseInt(el.attr('max'))) {
+            el.val(el.attr('max'))
+        }
+    })
 
     $('#diceForm').submit((e) => {
         e.preventDefault()
@@ -286,21 +394,24 @@
             let successes = `The average number of hits on this attack is <span class="badge badge-dark">${res.Successes}</span> hits`
             let results = ''
 
+            const showUnmoddedFirst = getDiceViewMode() === 'unmodded'
+            $('#chances').html(getChancesTable(res.Chances))
+
             for (let i = 0;  i < res.Rolls.length; i++) {
                 results += `<tr>
                                 <th>${i+1}</th>
                                 <td>
-                                    <div data-toggle="collapse" data-target="#attackdice${i},#defensdice${i}">${convertAttackDice(res.Rolls[i].Attack)}</div>
+                                    <div data-toggle="collapse" data-target="#attackdice${i},#defensdice${i}">${convertAttackDice(showUnmoddedFirst ? res.Rolls[i].Attack : res.Rolls[i].AttackAfter)}</div>
                                     <div class="collapse" id="attackdice${i}">
-                                        ${convertAttackDice(res.Rolls[i].AttackAfter)}<br>
-                                        <small class="badge badge-light">Modified</small>
+                                        ${convertAttackDice(showUnmoddedFirst ? res.Rolls[i].AttackAfter : res.Rolls[i].Attack)}<br>
+                                        <small class="badge badge-light">${showUnmoddedFirst ? 'Modified' : 'Unmodified'}</small>
                                     </div>
                                 </td>
                                 <td>
-                                    <div data-toggle="collapse" data-target="#attackdice${i},#defensdice${i}">${convertDefenseDice(res.Rolls[i].Defense)}</div>
+                                    <div data-toggle="collapse" data-target="#attackdice${i},#defensdice${i}">${convertDefenseDice(showUnmoddedFirst ? res.Rolls[i].Defense : res.Rolls[i].DefenseAfter)}</div>
                                     <div class="collapse" id="defensdice${i}">
-                                        ${convertDefenseDice(res.Rolls[i].DefenseAfter)}<br>
-                                        <small class="badge badge-light">Modified</small>
+                                        ${convertDefenseDice(showUnmoddedFirst ? res.Rolls[i].DefenseAfter : res.Rolls[i].Defense)}<br>
+                                        <small class="badge badge-light">${showUnmoddedFirst ? 'Modified' : 'Unmodified'}</small>
                                     </div>
                                 </td>
                                 <td>${res.Rolls[i].Hits}</td>
