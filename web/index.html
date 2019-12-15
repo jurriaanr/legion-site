@@ -135,6 +135,12 @@
                                 <input type="number" autocomplete="off" class="form-control form-control-sm" id="aim" value="0" min="0" max="10">
                             </div>
                         </div>
+                        <div class="form-group row" title="During the 'Convert Attack Surges'step of an attack, an attacking unit may spend 1 or more surge tokens to convert 1 attack surge result to a hit for each token spent.">
+                            <label for="surgeAX" class="col-6 col-form-label">Surge tokens</label>
+                            <div class="col-6">
+                                <input type="number" autocomplete="off" class="form-control form-control-sm" id="surgeA" value="0" min="0" max="10">
+                            </div>
+                        </div>
                         <div class="form-group row" title="When you spend an aim token, reroll up to X additional die/dice">
                             <label for="preciseXX" class="keyword col-6 col-form-label">Precise X</label>
                             <div class="col-6">
@@ -202,16 +208,22 @@
                                 <input type="number" autocomplete="off" class="form-control form-control-sm" id="dodge" value="0" min="0" max="10">
                             </div>
                         </div>
-                        <div class="form-group row" title="During the 'Apply Dodge and Cover' step of a ranged attack, light cover can cancel one hit, heavy cover cancels up to two hits">
-                            <label for="coverX" class="col-6 col-form-label">Cover</label>
+                        <div class="form-group row" title="While defending against a ranged attack,during the 'Roll Defense Dice' step the defender may flip active shield tokens to add 1 block and roll 1 defense dice less for each token">
+                            <label for="shieldX" class="col-6 col-form-label">Active shield tokens</label>
                             <div class="col-6">
-                                <input type="number" autocomplete="off" class="form-control form-control-sm" id="cover" value="0" min="0" max="2">
+                                <input type="number" autocomplete="off" class="form-control form-control-sm" id="shield" value="0" min="0" max="10">
+                            </div>
+                        </div>
+                        <div class="form-group row" title="During the 'Convert Defense Surges'step of an attack, a defending unit may spend 1 or more surge tokens to convert 1 defense surge result to a block for each token spent.">
+                            <label for="surgeDX" class="col-6 col-form-label">Surge tokens</label>
+                            <div class="col-6">
+                                <input type="number" autocomplete="off" class="form-control form-control-sm" id="surgeD" value="0" min="0" max="10">
                             </div>
                         </div>
                         <div class="form-group row" title="While defending against a ranged attack, improve your cover by X">
                             <label for="coverXX" class="keyword col-6 col-form-label">Cover X</label>
                             <div class="col-6">
-                                <input type="number" autocomplete="off" class="form-control form-control-sm" id="coverX" value="0" min="0" max="2">
+                                <input type="number" autocomplete="off" class="form-control form-control-sm" id="coverX" value="0" min="0" max="10">
                             </div>
                         </div>
                         <div class="form-group row" title="While defending, cancel X hit results">
@@ -224,6 +236,12 @@
                             <label for="uncannyLuckXX" class="keyword col-6 col-form-label">Uncanny Luck X</label>
                             <div class="col-6">
                                 <input type="number" autocomplete="off" class="form-control form-control-sm" id="uncannyLuckX" value="0" min="0" max="10">
+                            </div>
+                        </div>
+                        <div class="form-group row" title="You may choose not to remove your suppression tokens. While defending against a ranged attack, roll 1 extra defense die for each suppression token you have, adding up to X extra dice.">
+                            <label for="dangerSenseXX" class="keyword col-6 col-form-label">Danger Sense X</label>
+                            <div class="col-6">
+                                <input type="number" autocomplete="off" class="form-control form-control-sm" id="dangerSenseX" value="0" min="0" max="10">
                             </div>
                         </div>
                         <div class="form-group form-check" title="While defending, cancel all hit results">
@@ -402,6 +420,9 @@
         // tokens
         const aim = $('#aim').val()
         const dodge = $('#dodge').val()
+        const shield = $('#shield').val()
+        const surgeA = $('#surgeA').val()
+        const surgeD = $('#surgeD').val()
         // attack keywords
         const preciseX = $('#preciseX').val()
         const pierceX = $('#pierceX').val()
@@ -418,11 +439,12 @@
         const coverX = $('#coverX').val()
         const armorX = $('#armorX').val()
         const uncannyLuckX = $('#uncannyLuckX').val()
+        const dangerSenseX = $('#dangerSenseX').val()
 
         const dice = `r=${r}&b=${b}&w=${w}&as=${as}&d=${d}&ds=${ds}&cover=${cover}`
-        const tokens = `aim=${aim}&dodge=${dodge}`
+        const tokens = `aim=${aim}&dodge=${dodge}&shield=${shield}&surgeA=${surgeA}&surgeD=${surgeD}`
         const attackKeywords = `preciseX=${preciseX}&pierceX=${pierceX}&criticalX=${criticalX}&ramX=${ramX}&impactX=${impactX}&blast=${blast}&highVelocity=${highVelocity}&sharpshooterX=${sharpshooterX}`
-        const defenseKeywords = `coverX=${coverX}&armorX=${armorX}&uncannyLuckX=${uncannyLuckX}&armor=${armor}&impervious=${impervious}`
+        const defenseKeywords = `coverX=${coverX}&armorX=${armorX}&uncannyLuckX=${uncannyLuckX}&dangerSenseX=${dangerSenseX}&armor=${armor}&impervious=${impervious}`
         const keywords = `${attackKeywords}&${defenseKeywords}`
         const url = `https://us-central1-legion-dice.cloudfunctions.net/dice?${dice}&${tokens}&${keywords}`
 
