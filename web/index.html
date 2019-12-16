@@ -397,7 +397,7 @@
     $('input[type=number]').on('focus', (e) => {
         const el = $(e.target)
         el.data('prev', el.val())
-        el.val('')
+        el.select()
     }).on('blur', (e) => {
         const el = $(e.target)
         if (el.val() === '') {
