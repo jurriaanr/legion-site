@@ -193,6 +193,7 @@
                         <select class="form-control form-control-sm" id="d">
                             <option value="white">White</option>
                             <option value="red">Red</option>
+                            <option value="">No defense</option>
                         </select>
                     </div>
                     <div class="form-group form-check">
@@ -447,7 +448,9 @@
         const attackKeywords = `preciseX=${preciseX}&pierceX=${pierceX}&criticalX=${criticalX}&ramX=${ramX}&impactX=${impactX}&blast=${blast}&highVelocity=${highVelocity}&sharpshooterX=${sharpshooterX}`
         const defenseKeywords = `coverX=${coverX}&armorX=${armorX}&uncannyLuckX=${uncannyLuckX}&dangerSenseX=${dangerSenseX}&armor=${armor}&impervious=${impervious}`
         const keywords = `${attackKeywords}&${defenseKeywords}`
-        const url = `https://us-central1-legion-dice.cloudfunctions.net/dice?${dice}&${tokens}&${keywords}`
+        const extra = `nodefense=${d === '' ? 1 : 0}`
+
+        const url = `https://us-central1-legion-dice.cloudfunctions.net/dice?${dice}&${tokens}&${keywords}&${extra}`
 
         gtag('event', 'roll', {
             'event_category' : 'Rolls',
